@@ -3,6 +3,8 @@
 #include <ecs/coordinator.hpp>
 
 #include "model/systems/cameraSystem.hpp"
+#include "model/systems/cubeSystem.hpp"
+#include "model/systems/pointsSystem.hpp"
 
 #include "model/systems/shaders/shaderRepository.hpp"
 
@@ -55,6 +57,8 @@ private:
     ShaderRepository shadersRepo;
 
     std::shared_ptr<CameraSystem> cameraSys;
+    std::shared_ptr<CubeSystem> cubeSys;
+    std::shared_ptr<PointsSystem> pointsSys;
 
     alg::Vec3 PointFromViewportCoordinates(float x, float y) const;
     Line LineFromViewportCoordinates(float x, float y) const;

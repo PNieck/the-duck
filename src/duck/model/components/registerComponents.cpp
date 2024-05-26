@@ -7,6 +7,7 @@
 #include <duck/model/components/scale.hpp>
 #include <duck/model/components/toUpdate.hpp>
 #include <duck/model/components/curveControlPoints.hpp>
+#include <duck/model/components/cubeParameters.hpp>
 
 
 void RegisterAllComponents(Coordinator& coordinator)
@@ -18,4 +19,5 @@ void RegisterAllComponents(Coordinator& coordinator)
     coordinator.RegisterComponent<Scale>();
     coordinator.RegisterComponent<ToUpdate>();
     coordinator.RegisterComponent<CurveControlPoints>();
+    coordinator.RegisterComponent<CubeParameters>();
 }

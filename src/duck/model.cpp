@@ -23,9 +23,13 @@ Model::Model(int viewport_width, int viewport_height)
     CameraSystem::RegisterSystem(coordinator);
     CurveControlPointsSystem::RegisterSystem(coordinator);
     ToUpdateSystem::RegisterSystem(coordinator);
+    CubeSystem::RegisterSystem(coordinator);
+    PointsSystem::RegisterSystem(coordinator);
 
     cameraSys = coordinator.GetSystem<CameraSystem>();
     auto curveControlPointsSystem = coordinator.GetSystem<CurveControlPointsSystem>();
+    cubeSys = coordinator.GetSystem<CubeSystem>();
+    pointsSys = coordinator.GetSystem<PointsSystem>();
 
     CameraParameters params {
         .target = Position(0.0f),
@@ -38,19 +42,24 @@ Model::Model(int viewport_width, int viewport_height)
 
     cameraSys->Init(params, Position(0.0f, 0.0f, 10.0f));
     curveControlPointsSystem->Init();
+    cubeSys->Init(&shadersRepo);
+    pointsSys->Init(&shadersRepo);
 
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-    glEnable(GL_LINE_SMOOTH);
-    glLineWidth(1.0);
-    glEnable(GL_BLEND);
-    glDepthMask(GL_FALSE);
-    glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+    glEnable(GL_CULL_FACE);
+
+    Entity cube = coordinator.CreateEntity();
+
+    cubeSys->CreateCube(cube, 2.f);
 }
 
 
 void Model::RenderFrame()
 {
     glClear(GL_COLOR_BUFFER_BIT);
+
+    cubeSys->Render();
+    pointsSys->Render();
 }
 
 
