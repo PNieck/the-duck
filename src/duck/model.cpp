@@ -25,11 +25,13 @@ Model::Model(int viewport_width, int viewport_height)
     ToUpdateSystem::RegisterSystem(coordinator);
     CubeSystem::RegisterSystem(coordinator);
     PointsSystem::RegisterSystem(coordinator);
+    WaterSystem::RegisterSystem(coordinator);
 
     cameraSys = coordinator.GetSystem<CameraSystem>();
     auto curveControlPointsSystem = coordinator.GetSystem<CurveControlPointsSystem>();
     cubeSys = coordinator.GetSystem<CubeSystem>();
     pointsSys = coordinator.GetSystem<PointsSystem>();
+    waterSys = coordinator.GetSystem<WaterSystem>();
 
     CameraParameters params {
         .target = Position(0.0f),
@@ -44,6 +46,7 @@ Model::Model(int viewport_width, int viewport_height)
     curveControlPointsSystem->Init();
     cubeSys->Init(&shadersRepo);
     pointsSys->Init(&shadersRepo);
+    waterSys->Init(&shadersRepo);
 
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glEnable(GL_CULL_FACE);
@@ -51,6 +54,10 @@ Model::Model(int viewport_width, int viewport_height)
 
     Entity cube = coordinator.CreateEntity();
     cubeSys->CreateCube(cube, 5.f);
+
+    Entity waterEntity = coordinator.CreateEntity();
+    WaterPlane waterPlane { .edge=5.f };
+    waterSys->CreateWater( waterEntity, waterPlane);
 }
 
 
@@ -58,6 +65,7 @@ void Model::RenderFrame()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    waterSys->Render();
     cubeSys->Render();
     //pointsSys->Render();
 }

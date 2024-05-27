@@ -9,6 +9,7 @@
 #include <duck/model/components/curveControlPoints.hpp>
 #include <duck/model/components/cubeParameters.hpp>
 #include <duck/model/components/cubeMaps.hpp>
+#include <duck/model/components/waterPlane.hpp>
 
 
 void RegisterAllComponents(Coordinator& coordinator)
@@ -22,4 +23,5 @@ void RegisterAllComponents(Coordinator& coordinator)
     coordinator.RegisterComponent<CurveControlPoints>();
     coordinator.RegisterComponent<CubeParameters>();
     coordinator.RegisterComponent<CubeMap>();
+    coordinator.RegisterComponent<WaterPlane>();
 }
