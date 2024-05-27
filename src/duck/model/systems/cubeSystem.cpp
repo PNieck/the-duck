@@ -4,6 +4,7 @@
 
 #include <duck/model/components/mesh.hpp>
 #include <duck/model/components/cubeParameters.hpp>
+#include <duck/model/components/cubeMaps.hpp>
 
 #include <duck/model/systems/cameraSystem.hpp>
 #include <duck/model/systems/pointsSystem.hpp>
@@ -15,6 +16,7 @@ void CubeSystem::RegisterSystem(Coordinator &coordinator)
 
     coordinator.RegisterRequiredComponent<CubeSystem, Mesh>();
     coordinator.RegisterRequiredComponent<CubeSystem, CubeParameters>();
+    coordinator.RegisterRequiredComponent<CubeSystem, CubeMap>();
 }
 
 
@@ -38,6 +40,19 @@ void CubeSystem::CreateCube(const Entity entity, float edge)
     );
 
     coordinator->AddComponent<Mesh>(entity, mesh);
+
+    CubeMap cubeMap(
+        "../../textures/MountainPath/posx.jpg",
+        "../../textures/MountainPath/negx.jpg",
+
+        "../../textures/MountainPath/posy.jpg",
+        "../../textures/MountainPath/negy.jpg",
+
+        "../../textures/MountainPath/posz.jpg",
+        "../../textures/MountainPath/negz.jpg"
+    );
+
+    coordinator->AddComponent<CubeMap>(entity, cubeMap);
 }
 
 
@@ -48,17 +63,19 @@ void CubeSystem::Render() const
     }
 
     auto const& cameraSystem = coordinator->GetSystem<CameraSystem>();
-    auto const& shader = shaderRepo->GetStdShader();
+    auto const& shader = shaderRepo->GetCubeShader();
 
     alg::Mat4x4 cameraMtx = cameraSystem->PerspectiveMatrix() * cameraSystem->ViewMatrix();
 
     shader.Use();
-    shader.SetColor(alg::Vec4(0.5f));
 
     for (auto const entity : entities) {
-        auto const mesh = coordinator->GetComponent<Mesh>(entity);
+        auto const& mesh = coordinator->GetComponent<Mesh>(entity);
+        auto const& cubeMap = coordinator->GetComponent<CubeMap>(entity);
 
         shader.SetMVP(cameraMtx);
+        shader.SetTexSampler(0);
+        cubeMap.Use();
         mesh.Use();
 
         glDrawElements(GL_TRIANGLES, mesh.GetElementsCnt(), GL_UNSIGNED_INT, 0);

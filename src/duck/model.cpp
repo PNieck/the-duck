@@ -47,19 +47,19 @@ Model::Model(int viewport_width, int viewport_height)
 
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glEnable(GL_CULL_FACE);
+    glEnable(GL_DEPTH_TEST); 
 
     Entity cube = coordinator.CreateEntity();
-
-    cubeSys->CreateCube(cube, 2.f);
+    cubeSys->CreateCube(cube, 5.f);
 }
 
 
 void Model::RenderFrame()
 {
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     cubeSys->Render();
-    pointsSys->Render();
+    //pointsSys->Render();
 }
 
 

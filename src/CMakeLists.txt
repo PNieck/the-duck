@@ -26,13 +26,19 @@ file(GLOB_RECURSE SOURCE_LIST CONFIGURE_DEPENDS "${PROJECT_SOURCE_DIR}/src/duck/
 
 add_library(duck_lib ${SOURCE_LIST} ${HEADER_LIST})
 target_include_directories(duck_lib PUBLIC ../include)
-target_link_libraries(duck_lib PRIVATE glfw glad imgui ecs algebra)
+target_link_libraries(duck_lib PRIVATE glfw glad imgui ecs algebra stb_image)
 
 # Copy shaders
 add_custom_target(copy_shaders
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/shaders ${CMAKE_BINARY_DIR}/shaders
 )
 add_dependencies(duck_lib copy_shaders)
+
+# Copy textures
+add_custom_target(copy_textures
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/textures ${CMAKE_BINARY_DIR}/textures
+)
+add_dependencies(duck_lib copy_textures)
 
 
 # For IDEs
