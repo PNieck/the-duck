@@ -21,6 +21,6 @@ public:
 private:
     ShaderRepository* shaderRepo;
 
-    std::vector<float> GenerateVertices(const WaterPlane& plane) const;
+    std::vector<float> GenerateVertices() const;
     std::vector<uint32_t> GenerateIndices() const;
 };

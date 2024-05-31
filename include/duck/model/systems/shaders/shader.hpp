@@ -29,6 +29,7 @@ public:
     void setFloat(const std::string &name, float value) const;
     void setMatrix4(const std::string &name, const alg::Mat4x4 &matrix) const;
     void setVec4(const std::string& name, const alg::Vec4& vec) const;
+    void setVec3(const std::string& name, const alg::Vec3& vec) const;
 
 private:
     int findUniformLocation(const std::string &name) const;
