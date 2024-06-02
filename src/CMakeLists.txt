@@ -34,11 +34,11 @@ add_custom_target(copy_shaders
 )
 add_dependencies(duck_lib copy_shaders)
 
-# Copy textures
-add_custom_target(copy_textures
-    COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/textures ${CMAKE_BINARY_DIR}/textures
+# Copy resources
+add_custom_target(copy_resources
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/resources
 )
-add_dependencies(duck_lib copy_textures)
+add_dependencies(duck_lib copy_resources)
 
 
 # For IDEs

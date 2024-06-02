@@ -42,14 +42,14 @@ void CubeSystem::CreateCube(const Entity entity, float edge)
     coordinator->AddComponent<Mesh>(entity, mesh);
 
     CubeMap cubeMap(
-        "../../textures/MountainPath/posx.jpg",
-        "../../textures/MountainPath/negx.jpg",
+        "../../resources/textures/MountainPath/posx.jpg",
+        "../../resources/textures/MountainPath/negx.jpg",
 
-        "../../textures/MountainPath/posy.jpg",
-        "../../textures/MountainPath/negy.jpg",
+        "../../resources/textures/MountainPath/posy.jpg",
+        "../../resources/textures/MountainPath/negy.jpg",
 
-        "../../textures/MountainPath/posz.jpg",
-        "../../textures/MountainPath/negz.jpg"
+        "../../resources/textures/MountainPath/posz.jpg",
+        "../../resources/textures/MountainPath/negz.jpg"
     );
 
     coordinator->AddComponent<CubeMap>(entity, cubeMap);
