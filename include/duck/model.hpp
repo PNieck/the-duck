@@ -7,6 +7,7 @@
 #include "model/systems/pointsSystem.hpp"
 #include "model/systems/waterSystem.hpp"
 #include "model/systems/rainSystem.hpp"
+#include "model/systems/duckSystem.hpp"
 
 #include "model/systems/shaders/shaderRepository.hpp"
 
@@ -63,6 +64,7 @@ private:
     std::shared_ptr<PointsSystem> pointsSys;
     std::shared_ptr<WaterSystem> waterSys;
     std::shared_ptr<RainSystem> rainSystem;
+    std::shared_ptr<DuckSystem> duckSystem;
 
     Entity cube, water;
 

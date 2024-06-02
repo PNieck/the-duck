@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 #include <glad/glad.h>
 
 
@@ -9,6 +11,8 @@ public:
         glGenTextures(1, &textureID);
         glBindTexture(GL_TEXTURE_2D, textureID);
     }
+
+    Texture(const std::string& path);
 
     inline void Use() const {
         glBindTexture(GL_TEXTURE_2D, textureID);

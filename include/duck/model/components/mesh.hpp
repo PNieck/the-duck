@@ -15,7 +15,7 @@ public:
 
     inline void Use() const { glBindVertexArray(VAO); }
 
-private:
+protected:
     /// @brief OpenGl vector array object
     unsigned int VAO;
 

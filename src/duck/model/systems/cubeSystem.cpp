@@ -20,7 +20,7 @@ void CubeSystem::RegisterSystem(Coordinator &coordinator)
 }
 
 
-void CubeSystem::CreateCube(const Entity entity, float edge)
+void CubeSystem::CreateCube(Entity entity, float edge)
 {
     CubeParameters params;
     params.edge = edge;

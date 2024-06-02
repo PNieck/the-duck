@@ -11,6 +11,7 @@
 #include <duck/model/components/cubeMap.hpp>
 #include <duck/model/components/waterPlane.hpp>
 #include <duck/model/components/texture.hpp>
+#include <duck/model/components/meshWithTex.hpp>
 
 
 void RegisterAllComponents(Coordinator& coordinator)
@@ -26,4 +27,5 @@ void RegisterAllComponents(Coordinator& coordinator)
     coordinator.RegisterComponent<CubeMap>();
     coordinator.RegisterComponent<WaterPlane>();
     coordinator.RegisterComponent<Texture>();
+    coordinator.RegisterComponent<MeshWithTex>();
 }

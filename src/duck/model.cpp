@@ -27,6 +27,7 @@ Model::Model(int viewport_width, int viewport_height)
     PointsSystem::RegisterSystem(coordinator);
     WaterSystem::RegisterSystem(coordinator);
     RainSystem::RegisterSystem(coordinator);
+    DuckSystem::RegisterSystem(coordinator);
 
     cameraSys = coordinator.GetSystem<CameraSystem>();
     auto curveControlPointsSystem = coordinator.GetSystem<CurveControlPointsSystem>();
@@ -34,6 +35,7 @@ Model::Model(int viewport_width, int viewport_height)
     pointsSys = coordinator.GetSystem<PointsSystem>();
     waterSys = coordinator.GetSystem<WaterSystem>();
     rainSystem = coordinator.GetSystem<RainSystem>();
+    duckSystem = coordinator.GetSystem<DuckSystem>();
 
     CameraParameters params {
         .target = Position(0.0f),
@@ -49,6 +51,7 @@ Model::Model(int viewport_width, int viewport_height)
     cubeSys->Init(&shadersRepo);
     pointsSys->Init(&shadersRepo);
     waterSys->Init(&shadersRepo);
+    duckSystem->Init(&shadersRepo);
 
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glEnable(GL_CULL_FACE);
@@ -59,6 +62,9 @@ Model::Model(int viewport_width, int viewport_height)
 
     water = coordinator.CreateEntity();
     waterSys->CreateWater( water, 2.f);
+
+    Entity duck = coordinator.CreateEntity();
+    duckSystem->CreateDuck(duck);
 }
 
 
@@ -77,6 +83,7 @@ void Model::RenderFrame()
 
     waterSys->Render(cube);
     cubeSys->Render();
+    duckSystem->Render();
     //pointsSys->Render();
 }
 

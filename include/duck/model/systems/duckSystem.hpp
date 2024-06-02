@@ -3,22 +3,25 @@
 #include <ecs/system.hpp>
 
 #include "shaders/shaderRepository.hpp"
+#include "../components/meshWithTex.hpp"
+
+#include <string>
 
 
-class CubeSystem: public System {
+class DuckSystem: public System {
 public:
     static void RegisterSystem(Coordinator& coordinator);
 
     inline void Init(ShaderRepository* shadersRepo)
         { this->shaderRepo = shadersRepo; }
 
-    void CreateCube(Entity entity, float edge);
+    void CreateDuck(Entity entity);
+
+    void Update() const;
 
     void Render() const;
-
 private:
     ShaderRepository* shaderRepo;
 
-    std::vector<float> GenerateVertices(Entity entity) const;
-    std::vector<uint32_t> GenerateIndices(Entity entity) const;
+    MeshWithTex GetMesh(const std::string& path) const;
 };
