@@ -20,6 +20,12 @@ public:
     inline void SetCameraPosition(const alg::Vec3& pos) const
         { setVec3("camPos", pos); }
 
+    inline void SetEnvCubeTextureUnit(int unit) const
+        { setInt("envMap", unit); }
+
+    inline void SetNormalMapTextureUnit(int unit) const
+        { setInt("normalMap", unit); }
+
     inline void Use() const
         { use(); }
 };

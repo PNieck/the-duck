@@ -2,8 +2,6 @@
 
 #include <string>
 
-#include <stb_image.h>
-
 #include <glad/glad.h>
 
 
@@ -19,7 +17,6 @@ public:
     );
 
     inline void Use() const {
-        glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
     }
 

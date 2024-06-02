@@ -4,7 +4,7 @@
 
 #include <duck/model/components/mesh.hpp>
 #include <duck/model/components/cubeParameters.hpp>
-#include <duck/model/components/cubeMaps.hpp>
+#include <duck/model/components/cubeMap.hpp>
 
 #include <duck/model/systems/cameraSystem.hpp>
 #include <duck/model/systems/pointsSystem.hpp>

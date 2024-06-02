@@ -5,6 +5,7 @@ in vec3 worldPos;
 in vec4 pos;
 
 uniform samplerCube envMap;
+uniform sampler2D normalMap;
 uniform vec3 camPos;
 
 out vec4 FragColor;
@@ -38,7 +39,7 @@ vec3 intersectRay(vec3 pos, vec3 direction)
 void main()
 {
     vec3 viewVec = normalize(camPos.xyz - worldPos);
-    vec3 norm = vec3(0.0f, 1.0f, 0.0f);
+    vec3 norm = 2.f * texture(normalMap, localPos.xz).xyz - 1.f;
 
     float refrCoeff = n1 / n2;
 

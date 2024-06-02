@@ -50,14 +50,19 @@ Model::Model(int viewport_width, int viewport_height)
 
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glEnable(GL_CULL_FACE);
-    glEnable(GL_DEPTH_TEST); 
+    glEnable(GL_DEPTH_TEST);
+    
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-    Entity cube = coordinator.CreateEntity();
-    cubeSys->CreateCube(cube, 5.f);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    cube = coordinator.CreateEntity();
+    cubeSys->CreateCube(cube, 2.f);
 
     Entity waterEntity = coordinator.CreateEntity();
-    WaterPlane waterPlane { .edge=5.f };
-    waterSys->CreateWater( waterEntity, waterPlane);
+    waterSys->CreateWater( waterEntity, 2.f);
 }
 
 
@@ -65,7 +70,9 @@ void Model::RenderFrame()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    waterSys->Render();
+    waterSys->Update();
+
+    waterSys->Render(cube);
     cubeSys->Render();
     //pointsSys->Render();
 }

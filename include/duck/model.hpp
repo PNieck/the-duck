@@ -62,6 +62,8 @@ private:
     std::shared_ptr<PointsSystem> pointsSys;
     std::shared_ptr<WaterSystem> waterSys;
 
+    Entity cube;
+
     alg::Vec3 PointFromViewportCoordinates(float x, float y) const;
     Line LineFromViewportCoordinates(float x, float y) const;
 };

@@ -1,6 +1,4 @@
-#include <duck/model/components/cubeMaps.hpp>
-
-#include <duck/openglDebug.hpp>
+#include <duck/model/components/cubeMap.hpp>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
@@ -17,15 +15,12 @@ CubeMap::CubeMap(const std::string &posXTex, const std::string &negXTex, const s
 
     SetTexture(GL_TEXTURE_CUBE_MAP_POSITIVE_X, posXTex);
     SetTexture(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, negXTex);
-    glCheckError();
 
     SetTexture(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, posYTex);
     SetTexture(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, negYTex);
-    glCheckError();
 
     SetTexture(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, posZTex);
     SetTexture(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, negZTex);
-    glCheckError();
 
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -53,7 +48,6 @@ void CubeMap::SetTexture(GLenum texType, const std::string &path) const
         GL_UNSIGNED_BYTE,
         data
     );
-    glCheckError();
 
     stbi_image_free(data);
 }
