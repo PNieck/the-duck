@@ -20,6 +20,8 @@ public:
 
     void Render(Entity cubeMap) const;
 
+    void Disturb(Entity water, float u, float v) const;
+
 private:
     static constexpr int heightMapResolution = 256;
 

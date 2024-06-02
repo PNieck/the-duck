@@ -6,6 +6,7 @@
 #include "model/systems/cubeSystem.hpp"
 #include "model/systems/pointsSystem.hpp"
 #include "model/systems/waterSystem.hpp"
+#include "model/systems/rainSystem.hpp"
 
 #include "model/systems/shaders/shaderRepository.hpp"
 
@@ -61,8 +62,9 @@ private:
     std::shared_ptr<CubeSystem> cubeSys;
     std::shared_ptr<PointsSystem> pointsSys;
     std::shared_ptr<WaterSystem> waterSys;
+    std::shared_ptr<RainSystem> rainSystem;
 
-    Entity cube;
+    Entity cube, water;
 
     alg::Vec3 PointFromViewportCoordinates(float x, float y) const;
     Line LineFromViewportCoordinates(float x, float y) const;

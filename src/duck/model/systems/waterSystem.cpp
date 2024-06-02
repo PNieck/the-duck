@@ -10,6 +10,8 @@
 
 #include <duck/model/systems/cameraSystem.hpp>
 
+#include <cmath>
+
 
 void WaterSystem::RegisterSystem(Coordinator &coordinator)
 {
@@ -85,6 +87,18 @@ void WaterSystem::Render(Entity cubeMap) const
 
         glDrawElements(GL_TRIANGLES, mesh.GetElementsCnt(), GL_UNSIGNED_INT, 0);
     }
+}
+
+
+void WaterSystem::Disturb(Entity water, float u, float v) const
+{
+    coordinator->EditComponent<WaterPlane>(water,
+        [u, v](WaterPlane& plane) {
+            int row = int(u * heightMapResolution);
+            int col = int(v * heightMapResolution);
+            plane.actHeightMap[row][col] += 0.25f;
+        } 
+    );
 }
 
 
@@ -174,8 +188,8 @@ float WaterSystem::GetDampingFactor(const WaterPlane &plane, int row, int col) c
 
     // distance to the nearest floor
     float l = std::min(
-        std::min(wallPos - pos.X(), pos.X() - wallPos),
-        std::min(wallPos = pos.Y(), pos.Y() - wallPos)
+        std::min(std::abs(wallPos - pos.X()), std::abs(-wallPos - pos.X())),
+        std::min(std::abs(wallPos - pos.Z()), std::abs(-wallPos - pos.Z()))
     );
 
     return 0.95f * std::min(1.f, l/0.2f);

@@ -11,7 +11,7 @@ public:
     }
 
     inline void Use() const {
-        glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+        glBindTexture(GL_TEXTURE_2D, textureID);
     }
 
     inline void Update(int width, int height, GLenum type, const unsigned char * data)

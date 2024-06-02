@@ -26,12 +26,14 @@ Model::Model(int viewport_width, int viewport_height)
     CubeSystem::RegisterSystem(coordinator);
     PointsSystem::RegisterSystem(coordinator);
     WaterSystem::RegisterSystem(coordinator);
+    RainSystem::RegisterSystem(coordinator);
 
     cameraSys = coordinator.GetSystem<CameraSystem>();
     auto curveControlPointsSystem = coordinator.GetSystem<CurveControlPointsSystem>();
     cubeSys = coordinator.GetSystem<CubeSystem>();
     pointsSys = coordinator.GetSystem<PointsSystem>();
     waterSys = coordinator.GetSystem<WaterSystem>();
+    rainSystem = coordinator.GetSystem<RainSystem>();
 
     CameraParameters params {
         .target = Position(0.0f),
@@ -51,18 +53,12 @@ Model::Model(int viewport_width, int viewport_height)
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
-    
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     cube = coordinator.CreateEntity();
     cubeSys->CreateCube(cube, 2.f);
 
-    Entity waterEntity = coordinator.CreateEntity();
-    waterSys->CreateWater( waterEntity, 2.f);
+    water = coordinator.CreateEntity();
+    waterSys->CreateWater( water, 2.f);
 }
 
 
@@ -70,7 +66,14 @@ void Model::RenderFrame()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    rainSystem->Update(water);
     waterSys->Update();
+    
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     waterSys->Render(cube);
     cubeSys->Render();

@@ -39,7 +39,8 @@ vec3 intersectRay(vec3 pos, vec3 direction)
 void main()
 {
     vec3 viewVec = normalize(camPos.xyz - worldPos);
-    vec3 norm = 2.f * texture(normalMap, localPos.xz).xyz - 1.f;
+    vec2 normLoc = localPos.xz / 2.0 + 0.5;
+    vec3 norm = 2.f * texture(normalMap, normLoc).xyz - 1.f;
 
     float refrCoeff = n1 / n2;
 
