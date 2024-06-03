@@ -12,6 +12,7 @@
 #include <duck/model/components/waterPlane.hpp>
 #include <duck/model/components/texture.hpp>
 #include <duck/model/components/meshWithTex.hpp>
+#include <duck/model/components/c2CurveParameters.hpp>
 
 
 void RegisterAllComponents(Coordinator& coordinator)
@@ -28,4 +29,5 @@ void RegisterAllComponents(Coordinator& coordinator)
     coordinator.RegisterComponent<WaterPlane>();
     coordinator.RegisterComponent<Texture>();
     coordinator.RegisterComponent<MeshWithTex>();
+    coordinator.RegisterComponent<C2CurveParameters>();
 }

@@ -16,6 +16,7 @@
 #include <duck/utilities/setIntersection.hpp>
 
 #include <algorithm>
+#include <cmath>
 
 
 void C2CurveSystem::RegisterSystem(Coordinator & coordinator)
@@ -133,6 +134,32 @@ void C2CurveSystem::HideBezierControlPoints(Entity entity)
     );
 
     DeleteBezierControlPoints(entity);
+}
+
+
+Position C2CurveSystem::CalculatePosition(Entity curve, float x) const
+{
+    static constexpr int p = 3; // degree of bspline
+    int k = int(std::floor(x));
+
+    if (x > 0 && std::floor(x) == x)
+        k--;
+
+    auto const cps = coordinator->GetComponent<CurveControlPoints>(curve);
+
+    std::vector<alg::Vec3> d(p + 1);
+    for (int j = 0; j <= p; ++j) {
+        d[j] = coordinator->GetComponent<Position>(cps.ControlPoints()[k /*- p*/ + j]).vec;
+    }
+
+    for (int r = 1; r <= p; ++r) {
+        for (int j = p; j >= r; --j) {
+            float alpha = (x - (j + k - p)) / ((j + 1 + k - r) - (j + k - p));
+            d[j] = (1.0f - alpha) * d[j - 1] + alpha * d[j];
+        }
+    }
+
+    return Position(d[p]);
 }
 
 

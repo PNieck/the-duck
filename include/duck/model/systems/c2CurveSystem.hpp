@@ -9,6 +9,7 @@
 #include "../components/curveControlPoints.hpp"
 #include "../components/bezierControlPoints.hpp"
 #include "../components/bSplinePolygonMesh.hpp"
+#include "../components/position.hpp"
 #include "curveControlPointsSystem.hpp"
 
 #include <vector>
@@ -39,6 +40,8 @@ public:
 
     void ShowBezierControlPoints(Entity entity);
     void HideBezierControlPoints(Entity entity);
+
+    Position CalculatePosition(Entity curve, float t) const;
 
     void Render() const;
 

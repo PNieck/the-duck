@@ -7,7 +7,6 @@
 #include <duck/model/components/cubeMap.hpp>
 
 #include <duck/model/systems/cameraSystem.hpp>
-#include <duck/model/systems/pointsSystem.hpp>
 
 
 void CubeSystem::RegisterSystem(Coordinator &coordinator)
@@ -27,15 +26,9 @@ void CubeSystem::CreateCube(Entity entity, float edge)
 
     coordinator->AddComponent<CubeParameters>(entity, params);
 
-    auto const& vertices = GenerateVertices(entity);
-
-    for (int i=0; i < vertices.size(); i += 3) {
-        coordinator->GetSystem<PointsSystem>()->CreatePoint(Position(vertices[i], vertices[i+1], vertices[i+2]));
-    }
-
     Mesh mesh;
     mesh.Update(
-        vertices,
+        GenerateVertices(entity),
         GenerateIndices(entity)
     );
 

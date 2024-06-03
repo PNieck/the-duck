@@ -8,6 +8,8 @@
 #include "model/systems/waterSystem.hpp"
 #include "model/systems/rainSystem.hpp"
 #include "model/systems/duckSystem.hpp"
+#include "model/systems/c2CurveSystem.hpp"
+#include "model/systems/followingCurveSystem.hpp"
 
 #include "model/systems/shaders/shaderRepository.hpp"
 
@@ -65,8 +67,10 @@ private:
     std::shared_ptr<WaterSystem> waterSys;
     std::shared_ptr<RainSystem> rainSystem;
     std::shared_ptr<DuckSystem> duckSystem;
+    std::shared_ptr<C2CurveSystem> c2CurveSystem;
+    std::shared_ptr<FollowingCurveSystem> followSystem;
 
-    Entity cube, water;
+    Entity cube, water, duck;
 
     alg::Vec3 PointFromViewportCoordinates(float x, float y) const;
     Line LineFromViewportCoordinates(float x, float y) const;

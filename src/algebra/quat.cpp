@@ -21,6 +21,21 @@ alg::Quat::Quat(float pitch, float yaw, float roll)
 }
 
 
+alg::Quat::Quat(Vec3 from, Vec3 to)
+{
+    Vec3 a = Cross(from, to);
+    X() = a.X();
+    Y() = a.Y();
+    Z() = a.Z();
+
+    W() = sqrtf(from.LengthSquared() * to.LengthSquared()) + Dot(from, to);
+
+    Quat tmp = this->Normalize();
+
+    *this = tmp;
+}
+
+
 alg::Vec3 alg::Quat::Rotate(const alg::Vec3& v) const
 {
     alg::Quat tmp(v.X(), v.Y(), v.Z(), 0.0f);
