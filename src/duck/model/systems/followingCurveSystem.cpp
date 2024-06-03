@@ -22,10 +22,10 @@ void FollowingCurveSystem::Init()
 
 Entity FollowingCurveSystem::CreateCurve()
 {
-    Entity cp1 = pointsSys->CreatePoint(Position(dist(gen) * 2.f, 0.f, dist(gen) * 2.f));
-    Entity cp2 = pointsSys->CreatePoint(Position(dist(gen) * 2.f, 0.f, dist(gen) * 2.f));
-    Entity cp3 = pointsSys->CreatePoint(Position(dist(gen) * 2.f, 0.f, dist(gen) * 2.f));
-    Entity cp4 = pointsSys->CreatePoint(Position(dist(gen) * 2.f, 0.f, dist(gen) * 2.f));
+    Entity cp1 = pointsSys->CreatePoint(Position(dist(gen) * 4.f - 2.f, 0.f, dist(gen) * 4.f - 2.f));
+    Entity cp2 = pointsSys->CreatePoint(Position(dist(gen) * 4.f - 2.f, 0.f, dist(gen) * 4.f - 2.f));
+    Entity cp3 = pointsSys->CreatePoint(Position(dist(gen) * 4.f - 2.f, 0.f, dist(gen) * 4.f - 2.f));
+    Entity cp4 = pointsSys->CreatePoint(Position(dist(gen) * 4.f - 2.f, 0.f, dist(gen) * 4.f - 2.f));
 
     curve = curveSys->CreateC2Curve({cp1, cp2, cp3, cp4});
 
@@ -47,7 +47,7 @@ void FollowingCurveSystem::Update(Entity duck)
         curveSys->DeleteControlPoint(curve, toDel);
         coordinator->DestroyEntity(toDel);
 
-        Entity newCp = pointsSys->CreatePoint(Position(dist(gen) * 2.f, 0.f, dist(gen) * 2.f));
+        Entity newCp = pointsSys->CreatePoint(Position(dist(gen) * 4.f - 2.f, 0.f, dist(gen) * 4.f - 2.f));
         curveSys->AddControlPoint(curve, newCp);
 
         t -= 1.f;

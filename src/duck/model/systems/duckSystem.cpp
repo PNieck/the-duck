@@ -8,6 +8,7 @@
 #include <duck/model/components/texture.hpp>
 
 #include <duck/model/systems/cameraSystem.hpp>
+#include <duck/model/systems/waterSystem.hpp>
 
 #include <fstream>
 #include <vector>
@@ -39,8 +40,13 @@ void DuckSystem::CreateDuck(Entity entity)
 }
 
 
-void DuckSystem::Update() const
+void DuckSystem::Update(Entity water, Entity duck) const
 {
+    auto const& pos = coordinator->GetComponent<Position>(duck);
+
+    float u = pos.GetX() / 4.f + 0.5f;
+    float v = pos.GetZ() / 4.f + 0.5f;
+    coordinator->GetSystem<WaterSystem>()->Disturb(water, v, u);
 }
 
 

@@ -18,7 +18,7 @@ public:
 
     void CreateDuck(Entity entity);
 
-    void Update() const;
+    void Update(Entity water, Entity duck) const;
 
     void Render() const;
 private:

@@ -76,19 +76,6 @@ Model::Model(int viewport_width, int viewport_height)
 
     glEnable( GL_PROGRAM_POINT_SIZE );
     glPointSize(10.0f);
-
-    // Entity cp1 = pointsSys->CreatePoint(Position(0.f, 0.f, 0.f));
-    // Entity cp2 = pointsSys->CreatePoint(Position(4.f, 0.f, 1.f));
-    // Entity cp3 = pointsSys->CreatePoint(Position(-4.f, 0.f, 2.f));
-    // Entity cp4 = pointsSys->CreatePoint(Position(4.f, 0.f, 3.f));
-    // Entity cp5 = pointsSys->CreatePoint(Position(-4.f, 0.f, 4.f));
-    // Entity cp6 = pointsSys->CreatePoint(Position(4.f, 0.f, 5.f));
-
-    // Entity curve = c2CurveSystem->CreateC2Curve({cp1, cp2, cp3, cp4, cp5, cp6});
-
-    // for (float t=0.f; t <= 3.f; t+=0.1f) {
-    //     pointsSys->CreatePoint(c2CurveSystem->CalculatePosition(curve, t));
-    // }
 }
 
 
@@ -99,6 +86,7 @@ void Model::RenderFrame()
     rainSystem->Update(water);
     waterSys->Update();
     followSystem->Update(duck);
+    duckSystem->Update(water, duck);
     
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
@@ -109,9 +97,6 @@ void Model::RenderFrame()
     waterSys->Render(cube);
     cubeSys->Render();
     duckSystem->Render();
-
-    pointsSys->Render();
-    c2CurveSystem->Render();
 }
 
 
